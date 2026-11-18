@@ -1,6 +1,7 @@
 """Command-line entry point: python -m dataengreads <command>."""
 import argparse
 
+from dataengreads.collect import collect
 from dataengreads.config import load_blogs
 from dataengreads.db import connect
 from dataengreads.discover import discover
@@ -34,7 +35,17 @@ def run_discover(args: argparse.Namespace) -> int:
     return 0
 
 
-HANDLERS = {"discover": run_discover}
+def run_collect(args: argparse.Namespace) -> int:
+    con, client = connect(), PoliteClient()
+    counts = collect(con, client, load_blogs()["blogs"], feeds_only=args.feeds_only)
+    for company, new in counts.items():
+        print(f"  {company:<14} {'not discovered: run discover first' if new is None else f'{new} new'}")
+    total = con.execute("SELECT count(*) FROM posts").fetchone()[0]
+    print(f"{sum(n or 0 for n in counts.values())} new URLs, {total} posts stored, {client.requests} requests made")
+    return 0
+
+
+HANDLERS = {"discover": run_discover, "collect": run_collect}
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -44,6 +55,8 @@ def main(argv: list[str] | None = None) -> int:
         cmd = sub.add_parser(name, help=help_text)
         if name == "discover":
             cmd.add_argument("--refresh", action="store_true", help="re-discover blogs that already have a feed or sitemap")
+        if name == "collect":
+            cmd.add_argument("--feeds-only", action="store_true", help="skip the sitemap backfill (nightly runs)")
     args = parser.parse_args(argv)
     if args.command not in HANDLERS:
         print(f"{args.command}: not implemented yet")

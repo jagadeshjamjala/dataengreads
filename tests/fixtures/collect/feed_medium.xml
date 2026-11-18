@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"><channel>
+  <title>Example Tech Blog</title>
+  <item><title>Building a lakehouse</title>
+    <link>https://eng.example.com/blog/lakehouse-27447416e68f?source=rss----2615bd06b42e---4</link>
+    <pubDate>Tue, 10 Sep 2024 09:00:00 GMT</pubDate></item>
+  <item><title>CDC at scale</title>
+    <link>https://eng.example.com/blog/cdc-at-scale/?utm_source=rss&amp;utm_medium=feed#comments</link>
+    <pubDate>Mon, 02 Sep 2024 09:00:00 GMT</pubDate></item>
+</channel></rss>

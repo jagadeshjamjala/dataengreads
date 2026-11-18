@@ -29,9 +29,9 @@ Each phase: `/clear` → `/next-phase` → approve the plan → let it build and
 *Your input:* fix the blogs it can't find. Add companies you rate, especially fintech.
 
 ## Phase 4 — Collect post URLs
-- [ ] From feeds: recent posts (title, url, date)
-- [ ] Backfill from sitemaps: post URLs since `backfill_since`, filtered to blog-post paths
-- [ ] Store as `status = 'new'`; skip known URLs
+- [x] From feeds: recent posts (title, url, date)
+- [x] Backfill from sitemaps: post URLs since `backfill_since`, filtered to blog-post paths
+- [x] Store as `status = 'new'`; skip known URLs
 
 **Done when:** a real run reports new URLs per blog; a re-run adds 0.
 

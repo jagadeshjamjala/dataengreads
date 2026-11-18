@@ -52,6 +52,7 @@ def test_blog_defaults_merged_and_overridable(tmp_path):
     (lambda d: d["blogs"][0].update(url="netflixtechblog.com"), "url"),
     (lambda d: d["blogs"][0].update(feed="netflixtechblog.com/feed"), "feed"),
     (lambda d: d["blogs"][0].update(sitemap="ftp://x.com/sitemap.xml"), "sitemap"),
+    (lambda d: d["blogs"][0].update(post_prefix="blog"), "post_prefix"),
     (lambda d: d["blogs"][0].pop("industry"), "industry"),
     (lambda d: d["defaults"].update(min_words=0), "min_words"),
     (lambda d: d["defaults"].update(backfill_since="2016-13-01"), "backfill_since"),

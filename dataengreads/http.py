@@ -1,4 +1,5 @@
 """Polite HTTP client: honours robots.txt, 1 request/second per domain, retries, on-disk cache."""
+import gzip
 import hashlib
 import time
 from pathlib import Path
@@ -35,10 +36,13 @@ class PoliteClient:
         resp = self._request(url)
         if resp is None or resp.status_code != 200:
             return None
+        # .xml.gz sitemaps arrive as gzip bytes unless the server also set Content-Encoding.
+        gzipped = resp.content[:2] == b"\x1f\x8b"
+        text = gzip.decompress(resp.content).decode(errors="replace") if gzipped else resp.text
         if cache:
             self.cache_dir.mkdir(parents=True, exist_ok=True)
-            path.write_text(resp.text)
-        return resp.text
+            path.write_text(text)
+        return text
 
     def robots(self, url: str) -> RobotFileParser:
         """The host's parsed robots.txt, fetched once per run."""

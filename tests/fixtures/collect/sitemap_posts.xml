@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://eng.example.com/blog/lakehouse-27447416e68f</loc><lastmod>2024-09-10</lastmod></url>
+  <url><loc>https://eng.example.com/blog/streaming-joins/</loc><lastmod>2023-03-01T10:00:00+00:00</lastmod></url>
+  <url><loc>https://eng.example.com/blog/no-date-post</loc></url>
+  <url><loc>https://eng.example.com/blog/old-post</loc><lastmod>2014-01-01</lastmod></url>
+  <url><loc>https://eng.example.com/blog/tagged/kafka</loc><lastmod>2024-01-01</lastmod></url>
+  <url><loc>https://eng.example.com/blog/</loc><lastmod>2024-01-01</lastmod></url>
+  <url><loc>https://eng.example.com/careers/data-engineer</loc><lastmod>2024-01-01</lastmod></url>
+  <url><loc>https://other.example.org/blog/elsewhere</loc><lastmod>2024-01-01</lastmod></url>
+</urlset>

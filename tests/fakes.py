@@ -13,8 +13,10 @@ def fixture(name: str) -> str:
 
 
 class FakeResponse:
-    def __init__(self, status_code: int, text: str = ""):
-        self.status_code, self.text = status_code, text
+    def __init__(self, status_code: int, body: str | bytes = ""):
+        self.status_code = status_code
+        self.content = body if isinstance(body, bytes) else body.encode()
+        self.text = self.content.decode(errors="replace")
 
 
 class FakeSession:
