@@ -13,8 +13,8 @@ Each phase: `/clear` → `/next-phase` → approve the plan → let it build and
 **Done when:** `python -m dataengreads --help` works and config tests pass.
 
 ## Phase 2 — Storage
-- [ ] Tables `blogs`, `posts` (url PK, blog, title, published_at, author, word_count, text, html_hash, fetched_at, status), `classifications`
-- [ ] `upsert` helper; tests on a temp DB
+- [x] Tables `blogs`, `posts` (url PK, blog, title, published_at, author, word_count, text, html_hash, fetched_at, status), `classifications`
+- [x] `upsert` helper; tests on a temp DB
 
 **Done when:** upserting twice doesn't duplicate rows.
 
