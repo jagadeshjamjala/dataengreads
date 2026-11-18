@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.DS_Store
+data/*.duckdb
+data/*.wal
+data/cache/
+site/index.html
+site/data.js

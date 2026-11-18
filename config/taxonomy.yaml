@@ -1,0 +1,34 @@
+# What the LLM extracts for each post. Keep ids stable -- they become filters and URLs.
+
+problems:   # the problem the post solves; pick 1 primary + up to 2 more
+  - { id: scale_ingestion,    label: "Ingesting at scale",           hint: "high-volume event/log/CDC ingestion" }
+  - { id: realtime,           label: "Real-time & streaming",        hint: "low-latency pipelines, stream processing" }
+  - { id: cdc_sync,           label: "CDC & data sync",              hint: "replicating databases, keeping systems in sync" }
+  - { id: late_data,          label: "Late & out-of-order data",     hint: "watermarks, backfills, reprocessing" }
+  - { id: cost,               label: "Cost reduction",               hint: "storage/compute savings, FinOps" }
+  - { id: performance,        label: "Query performance",            hint: "speeding up queries, indexing, layout, caching" }
+  - { id: quality,            label: "Data quality & incidents",     hint: "testing, contracts, outages, postmortems" }
+  - { id: lineage_catalog,    label: "Discovery, lineage & catalog", hint: "metadata, lineage, data discovery platforms" }
+  - { id: platform,           label: "Building a data platform",     hint: "self-serve platforms, internal tooling, orchestration at scale" }
+  - { id: migration,          label: "Migration & modernization",    hint: "moving off legacy systems, re-platforming" }
+  - { id: modeling,           label: "Data modeling & metrics",      hint: "warehouse design, metrics layers, experimentation data" }
+  - { id: governance_privacy, label: "Governance, privacy & compliance", hint: "PII, deletion, access control, regulation" }
+  - { id: ml_data,            label: "Data for ML & AI",             hint: "feature stores, training data, embeddings pipelines" }
+  - { id: storage_formats,    label: "Storage & table formats",      hint: "lakehouse, Iceberg/Delta/Hudi, file formats, compaction" }
+
+post_types:
+  - case_study      # how we built/solved X -- the core content
+  - postmortem      # what broke and what we learned
+  - deep_dive       # internals of a system or technique
+  - open_source     # announcing a tool they open-sourced (still useful)
+  - opinion         # philosophy, culture, best practices
+  - announcement    # product/news -- ranked low
+
+levels: [intermediate, advanced]   # engineering blog posts are rarely beginner content
+
+extract:            # free-form fields the LLM fills
+  - stack            # list of technologies, normalized names (e.g. "Apache Kafka" -> "Kafka")
+  - scale            # one line of numbers if stated, e.g. "4 PB/day, 2M events/sec"; else empty
+  - key_decisions    # 3 bullets: decision + trade-off, in our own words
+  - summary          # 2 sentences, our own words
+  - interview_angle  # one system-design question this post helps answer

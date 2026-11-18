@@ -1,0 +1,7 @@
+duckdb
+pyyaml
+requests
+feedparser
+trafilatura
+anthropic
+pytest

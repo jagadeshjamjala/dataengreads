@@ -1,0 +1,44 @@
+# Seed list of engineering blogs. `discover` finds each blog's RSS/Atom feed and sitemap
+# from the homepage and robots.txt, and reports any it can't find -- fix those by hand
+# by adding `feed:` or `sitemap:` here.
+# Some URLs may have moved since this list was written; `discover` will tell you.
+# industry is used for site filters. tier: 1 = posts often about data, 2 = mixed.
+
+blogs:
+  # Streaming, media, consumer
+  - { company: Netflix,     url: "https://netflixtechblog.com",                     industry: media,      tier: 1 }
+  - { company: Spotify,     url: "https://engineering.atspotify.com",               industry: media,      tier: 1 }
+  - { company: Pinterest,   url: "https://medium.com/pinterest-engineering",        industry: social,     tier: 1 }
+  - { company: LinkedIn,    url: "https://www.linkedin.com/blog/engineering",       industry: social,     tier: 1 }
+  - { company: Meta,        url: "https://engineering.fb.com",                      industry: social,     tier: 2 }
+  - { company: Discord,     url: "https://discord.com/category/engineering",        industry: social,     tier: 2 }
+  - { company: Slack,       url: "https://slack.engineering",                       industry: saas,       tier: 2 }
+  - { company: Dropbox,     url: "https://dropbox.tech",                            industry: saas,       tier: 2 }
+  - { company: Cloudflare,  url: "https://blog.cloudflare.com",                     industry: infra,      tier: 2 }
+
+  # Marketplaces, mobility, delivery
+  - { company: Uber,        url: "https://www.uber.com/blog/engineering",           industry: mobility,   tier: 1 }
+  - { company: Lyft,        url: "https://eng.lyft.com",                            industry: mobility,   tier: 1 }
+  - { company: Airbnb,      url: "https://medium.com/airbnb-engineering",           industry: marketplace,tier: 1 }
+  - { company: DoorDash,    url: "https://careersatdoordash.com/engineering-blog",  industry: marketplace,tier: 1 }
+  - { company: Instacart,   url: "https://tech.instacart.com",                      industry: marketplace,tier: 1 }
+  - { company: Grab,        url: "https://engineering.grab.com",                    industry: mobility,   tier: 1 }
+  - { company: Shopify,     url: "https://shopify.engineering",                     industry: ecommerce,  tier: 2 }
+  - { company: Zalando,     url: "https://engineering.zalando.com",                 industry: ecommerce,  tier: 2 }
+  - { company: Etsy,        url: "https://www.etsy.com/codeascraft",                industry: ecommerce,  tier: 2 }
+  - { company: Walmart,     url: "https://medium.com/walmartglobaltech",            industry: retail,     tier: 2 }
+  - { company: Expedia,     url: "https://medium.com/expedia-group-tech",           industry: travel,     tier: 2 }
+
+  # Fintech
+  - { company: Stripe,      url: "https://stripe.com/blog/engineering",             industry: fintech,    tier: 1 }
+  - { company: Monzo,       url: "https://monzo.com/blog/technology",               industry: fintech,    tier: 1 }
+  - { company: Wise,        url: "https://medium.com/wise-engineering",             industry: fintech,    tier: 1 }
+  - { company: Capital One, url: "https://www.capitalone.com/tech/blog",            industry: fintech,    tier: 1 }
+  - { company: Coinbase,    url: "https://www.coinbase.com/blog/landing/engineering", industry: fintech,  tier: 2 }
+  - { company: Robinhood,   url: "https://newsroom.aboutrobinhood.com/category/engineering", industry: fintech, tier: 2 }
+  - { company: PayPal,      url: "https://medium.com/paypal-tech",                  industry: fintech,    tier: 2 }
+  - { company: Nubank,      url: "https://building.nubank.com",                     industry: fintech,    tier: 2 }
+
+defaults:
+  min_words: 400          # skip announcements and short news posts
+  backfill_since: 2016-01-01
