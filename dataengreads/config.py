@@ -40,9 +40,11 @@ def _check_defaults(defaults, name: str) -> None:
 
 def _check_blog(blog, where: str, seen: set) -> None:
     _require(blog, ("company", "url", "industry", "tier"), where)
-    url = urlparse(blog["url"])
-    if url.scheme not in ("http", "https") or not url.netloc:
-        raise ConfigError(f"{where}: url must be http(s), got {blog['url']!r}")
+    for field in ("url", "feed", "sitemap"):  # feed and sitemap are optional overrides
+        if field in blog:
+            url = urlparse(str(blog[field]))
+            if url.scheme not in ("http", "https") or not url.netloc:
+                raise ConfigError(f"{where}: {field} must be http(s), got {blog[field]!r}")
     if blog["tier"] not in TIERS:
         raise ConfigError(f"{where}: tier must be one of {TIERS}, got {blog['tier']!r}")
     for key in (blog["company"].lower(), blog["url"].rstrip("/").lower()):

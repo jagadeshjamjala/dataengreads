@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"><channel>
+  <title>Example Engineering</title>
+  <link>https://eng.example.com/blog</link>
+  <item><title>How we built our lakehouse</title><link>https://eng.example.com/blog/lakehouse</link>
+    <pubDate>Tue, 10 Sep 2024 09:00:00 GMT</pubDate></item>
+</channel></rss>

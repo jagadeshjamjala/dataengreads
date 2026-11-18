@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Plain Blog</title>
+  <entry><title>Scaling Kafka</title><link href="https://plain.example.org/kafka"/>
+    <id>https://plain.example.org/kafka</id><updated>2024-05-01T00:00:00Z</updated></entry>
+</feed>

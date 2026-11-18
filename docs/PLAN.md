@@ -19,10 +19,10 @@ Each phase: `/clear` → `/next-phase` → approve the plan → let it build and
 **Done when:** upserting twice doesn't duplicate rows.
 
 ## Phase 3 — Discover feeds and sitemaps
-- [ ] Polite HTTP client: User-Agent with repo URL, robots.txt check, 1 req/sec per domain, retries, on-disk cache
-- [ ] From each homepage: find RSS/Atom via `<link rel="alternate">` and common paths (`/feed`, `/rss`, `/atom.xml`); Medium blogs use `medium.com/feed/<publication>`
-- [ ] Find sitemaps from robots.txt and `/sitemap.xml`
-- [ ] Report blogs with no feed or sitemap so you can fix `blogs.yaml`
+- [x] Polite HTTP client: User-Agent with repo URL, robots.txt check, 1 req/sec per domain, retries, on-disk cache
+- [x] From each homepage: find RSS/Atom via `<link rel="alternate">` and common paths (`/feed`, `/rss`, `/atom.xml`); Medium blogs use `medium.com/feed/<publication>`
+- [x] Find sitemaps from robots.txt and `/sitemap.xml`
+- [x] Report blogs with no feed or sitemap so you can fix `blogs.yaml`
 
 **Done when:** tests pass on saved fixtures; a real run lists a feed or sitemap for most blogs.
 
