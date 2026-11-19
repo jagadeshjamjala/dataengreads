@@ -14,9 +14,9 @@ def fixture(name: str) -> str:
 
 class FakeResponse:
     def __init__(self, status_code: int, body: str | bytes = ""):
-        self.status_code = status_code
+        self.status_code, self.headers = status_code, {"content-type": "text/html"}
         self.content = body if isinstance(body, bytes) else body.encode()
-        self.text = self.content.decode(errors="replace")
+        self.text = self.content.decode("latin-1")  # what requests does for text/html with no charset
 
 
 class FakeSession:

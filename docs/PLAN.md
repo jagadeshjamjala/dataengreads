@@ -36,9 +36,9 @@ Each phase: `/clear` → `/next-phase` → approve the plan → let it build and
 **Done when:** a real run reports new URLs per blog; a re-run adds 0.
 
 ## Phase 5 — Fetch and extract article text
-- [ ] Fetch HTML for `new` posts (polite client); extract title, date, author and main text with trafilatura
-- [ ] Drop posts under `min_words`; mark `fetched` / `too_short` / `failed`
-- [ ] Resumable: `--limit N` per run
+- [x] Fetch HTML for `new` posts (polite client); extract title, date, author and main text with trafilatura
+- [x] Drop posts under `min_words`; mark `fetched` / `too_short` / `failed`
+- [x] Resumable: `--limit N` per run
 
 **Done when:** extraction tests pass on 3–4 saved blog pages (Medium, WordPress, custom); a real run of 200 posts has under 5% failures.
 

@@ -45,6 +45,9 @@ def _check_blog(blog, where: str, seen: set) -> None:
             url = urlparse(str(blog[field]))
             if url.scheme not in ("http", "https") or not url.netloc:
                 raise ConfigError(f"{where}: {field} must be http(s), got {blog[field]!r}")
+    delay = blog.get("delay", 1)
+    if not isinstance(delay, (int, float)) or isinstance(delay, bool) or delay < 1:
+        raise ConfigError(f"{where}: delay must be a number of seconds >= 1, got {delay!r}")
     if "post_prefix" in blog and not str(blog["post_prefix"]).startswith("/"):
         raise ConfigError(f"{where}: post_prefix must start with '/', got {blog['post_prefix']!r}")
     if blog["tier"] not in TIERS:

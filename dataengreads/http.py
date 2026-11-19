@@ -14,6 +14,16 @@ CACHE_DIR = Path(__file__).resolve().parent.parent / "data" / "cache"
 RETRY_STATUS = {429, 500, 502, 503, 504}
 
 
+def _decode(resp) -> str:
+    """requests assumes ISO-8859-1 for text/* without a charset, which garbles UTF-8 pages (é -> Ã©)."""
+    if "charset" in resp.headers.get("content-type", "").lower():
+        return resp.text
+    try:
+        return resp.content.decode("utf-8")
+    except UnicodeDecodeError:
+        return resp.text
+
+
 class PoliteClient:
     def __init__(self, session=None, cache_dir: Path = CACHE_DIR, delay: float = 1.0, retries: int = 3,
                  clock=time.monotonic, sleep=time.sleep):
@@ -21,6 +31,7 @@ class PoliteClient:
         self.session.headers["User-Agent"] = USER_AGENT
         self.cache_dir = Path(cache_dir)
         self.delay, self.retries = delay, retries
+        self.delays: dict[str, float] = {}  # host -> slower delay for sites that throttle (blogs.yaml `delay:`)
         self.clock, self.sleep = clock, sleep
         self.requests = 0
         self._last: dict[str, float] = {}             # host -> time of its last request
@@ -38,7 +49,7 @@ class PoliteClient:
             return None
         # .xml.gz sitemaps arrive as gzip bytes unless the server also set Content-Encoding.
         gzipped = resp.content[:2] == b"\x1f\x8b"
-        text = gzip.decompress(resp.content).decode(errors="replace") if gzipped else resp.text
+        text = gzip.decompress(resp.content).decode(errors="replace") if gzipped else _decode(resp)
         if cache:
             self.cache_dir.mkdir(parents=True, exist_ok=True)
             path.write_text(text)
@@ -62,7 +73,7 @@ class PoliteClient:
         """GET with the per-domain delay and retries. None if the server never gave a usable answer."""
         host = urlparse(url).netloc
         for attempt in range(self.retries):
-            wait = self._last.get(host, float("-inf")) + self.delay - self.clock()
+            wait = self._last.get(host, float("-inf")) + self.delays.get(host, self.delay) - self.clock()
             if wait > 0:
                 self.sleep(wait)
             self._last[host] = self.clock()

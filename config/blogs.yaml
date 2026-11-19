@@ -13,7 +13,7 @@ blogs:
   - { company: Meta,        url: "https://engineering.fb.com",                      industry: social,     tier: 2 }
   - { company: Discord,     url: "https://discord.com/category/engineering",        industry: social,     tier: 2 }
   - { company: Slack,       url: "https://slack.engineering",                       industry: saas,       tier: 2 }
-  - { company: Dropbox,     url: "https://dropbox.tech",                            industry: saas,       tier: 2 }
+  - { company: Dropbox,     url: "https://dropbox.tech",                            industry: saas,       tier: 2, delay: 5 }  # throttles (HTTP 202) at 1 req/sec
   - { company: Cloudflare,  url: "https://blog.cloudflare.com",                     industry: infra,      tier: 2 }
 
   # Marketplaces, mobility, delivery
@@ -25,7 +25,7 @@ blogs:
   - { company: Grab,        url: "https://engineering.grab.com",                    industry: mobility,   tier: 1 }
   - { company: Shopify,     url: "https://shopify.engineering",                     industry: ecommerce,  tier: 2 }
   - { company: Zalando,     url: "https://engineering.zalando.com",                 industry: ecommerce,  tier: 2 }
-  - { company: Etsy,        url: "https://www.etsy.com/codeascraft",                industry: ecommerce,  tier: 2 }
+  # Etsy (etsy.com/codeascraft) removed: it answers our crawler with 403 on every post.
   - { company: Walmart,     url: "https://medium.com/walmartglobaltech",            industry: retail,     tier: 2 }
   - { company: Expedia,     url: "https://medium.com/expedia-group-tech",           industry: travel,     tier: 2 }
 

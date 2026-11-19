@@ -31,6 +31,14 @@ def test_one_request_per_second_per_domain(tmp_path):
     assert client.requests == 5
 
 
+def test_per_host_delay_overrides_default(tmp_path):
+    client = make_client({"https://slow.example.com/a": "a", "https://slow.example.com/b": "b"}, tmp_path)
+    client.delays = {"slow.example.com": 5}
+    client.get("https://slow.example.com/a")
+    client.get("https://slow.example.com/b")
+    assert client.sleep.__self__.slept == [5, 5]  # robots.txt -> /a -> /b
+
+
 def test_retries_then_succeeds(tmp_path):
     client = make_client({"https://eng.example.com/a": [503, CONNECTION_ERROR, "ok"]}, tmp_path)
     assert client.get("https://eng.example.com/a") == "ok"
@@ -41,6 +49,11 @@ def test_gives_up_after_retries_and_on_404(tmp_path):
     assert client.get("https://eng.example.com/a") is None
     assert client.session.calls.count("https://eng.example.com/a") == 3
     assert client.get("https://eng.example.com/missing") is None
+
+
+def test_utf8_page_without_charset_is_not_garbled(tmp_path):
+    client = make_client({"https://eng.example.com/a": "Blake Darché".encode()}, tmp_path)
+    assert client.get("https://eng.example.com/a") == "Blake Darché"
 
 
 def test_cache_avoids_refetch_across_runs(tmp_path):
