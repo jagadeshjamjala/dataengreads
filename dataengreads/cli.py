@@ -73,7 +73,7 @@ HAIKU_PRICE = (0.10, 0.50)  # $ per 1M input / output tokens, claude-haiku-5-5 (
 
 def _anthropic():
     import anthropic  # only real runs need the SDK and a key
-    return anthropic.Anthropic()
+    return anthropic.Anthropic(timeout=120.0)  # default is 10 min; one hung request stalled a run for 45+ min
 
 
 def run_classify(args: argparse.Namespace) -> int:

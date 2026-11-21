@@ -1,9 +1,11 @@
 """Classify fetched posts with an LLM (one post per request, forced tool call) or an offline keyword heuristic."""
 import datetime as dt
+import html
 import os
 import re
 from pathlib import Path
 
+import anthropic
 import yaml
 
 from dataengreads.db import upsert
@@ -80,8 +82,12 @@ def tool_schema(taxonomy: dict) -> dict:
                              "description": "Up to 2 more problems besides the primary one"},
                 "post_type": {"type": "string", "enum": taxonomy["post_types"]},
                 "level": {"type": "string", "enum": taxonomy["levels"]},
-                "stack": {"type": "array", "items": text, "description": "Technologies used, e.g. Kafka, Spark"},
-                "scale": {**text, "description": "One line of numbers if stated, e.g. '4 PB/day'; else empty"},
+                "stack": {"type": "array", "items": text,
+                          "description": "Named products, frameworks, databases or languages used, e.g. Kafka, Spark, "
+                                         "PostgreSQL. Not techniques, algorithms or generic descriptions "
+                                         "(not 'union-find', 'ANN search', 'workflow orchestrator')."},
+                "scale": {**text, "description": "One line of numbers if stated, e.g. '4 PB/day'; "
+                                                 "else an empty string (never 'unknown' or a placeholder)"},
                 "key_decisions": {"type": "array", "items": text, "description": "3 bullets: decision + trade-off"},
                 "summary": {**text, "description": "2 sentences"},
                 "interview_angle": {**text, "description": "One system-design question this post helps answer"},
@@ -92,6 +98,13 @@ def tool_schema(taxonomy: dict) -> dict:
 
 def _problem_guide(taxonomy: dict) -> str:
     return "\n".join(f"- {p['id']}: {p['label']} ({p['hint']})" for p in taxonomy["problems"])
+
+
+def _scale(value: str) -> str:
+    """The model sometimes writes a placeholder (even HTML-escaped, '&lt;UNKNOWN&gt;') instead of leaving it empty."""
+    clean = html.unescape(value).strip()
+    placeholder = re.sub(r"[^a-z/ ]", "", clean.lower()).strip()
+    return "" if placeholder in ("", "unknown", "none", "n/a", "na", "not stated", "not specified") else clean
 
 
 def _row(url: str, out: dict, model: str) -> dict:
@@ -105,7 +118,7 @@ def _row(url: str, out: dict, model: str) -> dict:
         "post_type": out["post_type"],
         "level": out["level"],
         "stack": normalize_stack(out["stack"]),
-        "scale": out["scale"].strip(),
+        "scale": _scale(out["scale"]),
         "key_decisions": out["key_decisions"][:3],
         "summary": out["summary"].strip(),
         "interview_angle": out["interview_angle"].strip(),
@@ -196,7 +209,11 @@ def classify(con, taxonomy: dict, client=None, model: str | None = None, limit: 
         if client is None:
             row = offline_classify(post, taxonomy)
         else:
-            row, usage = classify_post(client, model, post, taxonomy)
+            try:
+                row, usage = classify_post(client, model, post, taxonomy)
+            except (anthropic.APIConnectionError, anthropic.InternalServerError):  # timeouts included
+                counts["failed"] += 1  # SDK already retried; skip this post, the next run picks it up
+                continue
             counts["input_tokens"] += usage.input_tokens
             counts["output_tokens"] += usage.output_tokens
         if row is None:

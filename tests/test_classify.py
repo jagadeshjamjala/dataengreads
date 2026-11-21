@@ -1,9 +1,11 @@
 from types import SimpleNamespace
 
+import anthropic
+import httpx2 as httpx
 import pytest
 import yaml
 
-from dataengreads.classify import (MAX_WORDS, TOOL_NAME, classify, evaluate, normalize_stack, offline_classify,
+from dataengreads.classify import (MAX_WORDS, _scale, TOOL_NAME, classify, evaluate, normalize_stack, offline_classify,
                                    tool_schema)
 from dataengreads.config import load_taxonomy
 from dataengreads.db import connect, upsert
@@ -27,6 +29,8 @@ class FakeAnthropic:
 
     def create(self, **kwargs):
         self.calls.append(kwargs)
+        if isinstance(self.answer, Exception):
+            raise self.answer
         usage = SimpleNamespace(input_tokens=1000, output_tokens=200)
         if self.answer is None:
             return SimpleNamespace(content=[SimpleNamespace(type="text", text="no")], usage=usage)
@@ -84,6 +88,20 @@ def test_rerun_skips_classified_unless_reclassify(con):
 def test_no_tool_call_leaves_post_unclassified(con):
     assert classify(con, TAX, client=FakeAnthropic(answer=None))["failed"] == 2
     assert con.execute("SELECT count(*) FROM classifications").fetchone()[0] == 0
+
+
+@pytest.mark.parametrize("raw, want", [
+    ("&lt;UNKNOWN&gt;", ""), ("<unknown>", ""), (" N/A ", ""), ("Not stated.", ""), ("", ""),
+    ("4 PB/day", "4 PB/day"), ("Unknown volume, 2M events/sec", "Unknown volume, 2M events/sec"),
+])
+def test_scale_placeholders_become_empty(raw, want):
+    assert _scale(raw) == want
+
+
+def test_timeout_skips_post_and_run_continues(con):
+    timeout = anthropic.APITimeoutError(request=httpx.Request("POST", "https://api.anthropic.com/v1/messages"))
+    assert classify(con, TAX, client=FakeAnthropic(answer=timeout))["failed"] == 2
+    assert classify(con, TAX, client=FakeAnthropic())["classified"] == 2  # picked up next run
 
 
 def test_normalize_stack():
