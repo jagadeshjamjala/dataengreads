@@ -1,9 +1,11 @@
 """Command-line entry point: python -m dataengreads <command>."""
 import argparse
+import os
 from urllib.parse import urlparse
 
+from dataengreads.classify import DEFAULT_MODEL, classify, classify_post, evaluate, offline_classify
 from dataengreads.collect import collect
-from dataengreads.config import load_blogs
+from dataengreads.config import load_blogs, load_taxonomy
 from dataengreads.db import connect
 from dataengreads.discover import discover
 from dataengreads.fetch import fetch
@@ -66,7 +68,48 @@ def run_fetch(args: argparse.Namespace) -> int:
     return 0
 
 
-HANDLERS = {"discover": run_discover, "collect": run_collect, "fetch": run_fetch}
+HAIKU_PRICE = (0.10, 0.50)  # $ per 1M input / output tokens, claude-haiku-5-5 (prompts <= 100K tokens)
+
+
+def _anthropic():
+    import anthropic  # only real runs need the SDK and a key
+    return anthropic.Anthropic()
+
+
+def run_classify(args: argparse.Namespace) -> int:
+    con = connect()
+    counts = classify(con, load_taxonomy(), client=None if args.offline else _anthropic(),
+                      limit=args.limit, reclassify=args.reclassify)
+    cost = (counts["input_tokens"] * HAIKU_PRICE[0] + counts["output_tokens"] * HAIKU_PRICE[1]) / 1e6
+    left = con.execute("SELECT count(*) FROM posts p LEFT JOIN classifications c USING (url) "
+                       "WHERE p.status = 'fetched' AND c.url IS NULL").fetchone()[0]
+    print(f"classified {counts['classified']}, failed {counts['failed']}; {left} fetched posts left")
+    if not args.offline:
+        print(f"tokens: {counts['input_tokens']:,} in, {counts['output_tokens']:,} out "
+              f"(~${cost:.4f} at Haiku 5.5 rates)")
+    return 0
+
+
+def run_eval(args: argparse.Namespace) -> int:
+    taxonomy = load_taxonomy()
+    if args.offline:
+        fn = lambda post: offline_classify(post, taxonomy)  # noqa: E731
+    else:
+        client, model = _anthropic(), os.environ.get("DATAENGREADS_MODEL", DEFAULT_MODEL)
+        fn = lambda post: classify_post(client, model, post, taxonomy)[0]  # noqa: E731
+    r = evaluate(connect(), fn)
+    for m in r["misses"]:
+        print(f"  MISS {m['url']}  want {m['want']}  got {m['got']}")
+    for url in r["missing"]:
+        print(f"  NOT IN DB {url}  (fetch it first)")
+    if r["unreviewed"]:
+        print(f"  WARNING: {r['unreviewed']} eval labels still have reviewed: false")
+    print(f"{r['n']} posts: is_de {r['is_de']:.0%}, primary_problem {r['primary_problem']:.0%} (on DE posts)")
+    return 0
+
+
+HANDLERS = {"discover": run_discover, "collect": run_collect, "fetch": run_fetch,
+            "classify": run_classify, "eval": run_eval}
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -81,6 +124,11 @@ def main(argv: list[str] | None = None) -> int:
         if name == "fetch":
             cmd.add_argument("--limit", type=int, default=1000, help="posts to fetch this run (default 1000)")
             cmd.add_argument("--retry-failed", action="store_true", help="also retry posts that failed before")
+        if name in ("classify", "eval"):
+            cmd.add_argument("--offline", action="store_true", help="keyword heuristic, no API key needed")
+        if name == "classify":
+            cmd.add_argument("--limit", type=int, default=100, help="posts to classify this run (default 100)")
+            cmd.add_argument("--reclassify", action="store_true", help="also redo posts already classified")
     args = parser.parse_args(argv)
     if args.command not in HANDLERS:
         print(f"{args.command}: not implemented yet")

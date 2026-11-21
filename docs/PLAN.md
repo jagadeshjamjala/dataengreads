@@ -43,10 +43,10 @@ Each phase: `/clear` → `/next-phase` → approve the plan → let it build and
 **Done when:** extraction tests pass on 3–4 saved blog pages (Medium, WordPress, custom); a real run of 200 posts has under 5% failures.
 
 ## Phase 6 — LLM classification
-- [ ] One post per request (articles are long); send title, company, and the first ~6,000 words
-- [ ] Forced tool call returning: is_de, confidence, primary_problem, problems, post_type, level, stack, scale, key_decisions (3), summary, interview_angle
-- [ ] Normalize stack names (one alias map, e.g. "Apache Kafka" → "Kafka")
-- [ ] `--offline` keyword heuristic for demo/tests
+- [x] One post per request (articles are long); send title, company, and the first ~6,000 words
+- [x] Forced tool call returning: is_de, confidence, primary_problem, problems, post_type, level, stack, scale, key_decisions (3), summary, interview_angle
+- [x] Normalize stack names (one alias map, e.g. "Apache Kafka" → "Kafka")
+- [x] `--offline` keyword heuristic for demo/tests
 - [ ] **Eval set:** `tests/fixtures/eval.yaml`, ~30 posts you label by hand; `python -m dataengreads eval` reports is_de and primary_problem accuracy
 
 **Done when:** mocked tests pass; is_de accuracy ≥ 90% on your eval set. Check the cost of 100 posts before the full run.

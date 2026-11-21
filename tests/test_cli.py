@@ -15,5 +15,5 @@ def test_help_lists_every_command():
 
 
 def test_stub_command_runs(capsys):
-    assert main(["classify"]) == 0
+    assert main(["build"]) == 0
     assert "not implemented" in capsys.readouterr().out
