@@ -1,0 +1,313 @@
+# Demo data for `python -m dataengreads demo`. Companies, posts and URLs are fictional (*.example).
+blogs:
+- company: Acme Streams
+  url: https://acme.example
+  industry: media
+  tier: 1
+- company: Globex Pay
+  url: https://globex.example
+  industry: fintech
+  tier: 1
+- company: Initech Rides
+  url: https://initech.example
+  industry: mobility
+  tier: 2
+posts:
+- url: https://acme.example/blog/kafka-ingest
+  blog: Acme Streams
+  title: Ingesting 2M events per second with Kafka <script>alert(1)</script>
+  published_at: '2025-06-10'
+  word_count: 2700
+  status: fetched
+- url: https://acme.example/blog/iceberg-lake
+  blog: Acme Streams
+  title: Moving our data lake from Hive tables to Iceberg
+  published_at: '2024-03-02'
+  word_count: 3100
+  status: fetched
+- url: https://acme.example/blog/late-data
+  blog: Acme Streams
+  title: Watermarks for late mobile events
+  published_at: '2023-11-20'
+  word_count: 1900
+  status: fetched
+- url: https://acme.example/blog/new-logo
+  blog: Acme Streams
+  title: Introducing our new engineering blog look
+  published_at: '2026-01-15'
+  word_count: 1500
+  status: fetched
+- url: https://globex.example/blog/ledger
+  blog: Globex Pay
+  title: Building a double-entry ledger pipeline
+  published_at: '2025-09-01'
+  word_count: 3100
+  status: fetched
+- url: https://globex.example/blog/cost-cut
+  blog: Globex Pay
+  title: Cutting warehouse spend by 40%
+  published_at: '2025-02-14'
+  word_count: 2300
+  status: fetched
+- url: https://globex.example/blog/gdpr-delete
+  blog: Globex Pay
+  title: Deleting customer data across 300 tables
+  published_at: '2024-08-30'
+  word_count: 2300
+  status: fetched
+- url: https://globex.example/blog/outage
+  blog: Globex Pay
+  title: 'Postmortem: the day our dashboards went blank'
+  published_at: '2026-04-05'
+  word_count: 2300
+  status: fetched
+- url: https://initech.example/blog/feature-store
+  blog: Initech Rides
+  title: A feature store for pricing models
+  published_at: '2024-12-12'
+  word_count: 3100
+  status: fetched
+- url: https://initech.example/blog/metrics-layer
+  blog: Initech Rides
+  title: One definition of a completed trip
+  published_at: '2023-05-18'
+  word_count: 2300
+  status: fetched
+- url: https://initech.example/blog/druid-to-clickhouse
+  blog: Initech Rides
+  title: Replacing Druid with ClickHouse for trip analytics
+  published_at: '2025-10-22'
+  word_count: 2700
+  status: fetched
+- url: https://initech.example/blog/ios-app
+  blog: Initech Rides
+  title: Making our iOS app launch faster
+  published_at: '2025-07-07'
+  word_count: 1500
+  status: fetched
+classifications:
+- url: https://acme.example/blog/kafka-ingest
+  is_de: true
+  confidence: 0.9
+  primary_problem: scale_ingestion
+  problems:
+  - realtime
+  post_type: case_study
+  level: advanced
+  stack:
+  - Kafka
+  - Flink
+  - S3
+  scale: 2M events/sec
+  key_decisions:
+  - Chose a simple design first and measured before optimizing
+  - Ran old and new systems side by side before cutting over
+  - Added automated checks so regressions are caught early
+  summary: A fictional team moves playback events from batch log shipping to a Kafka-based pipeline. Partitioning by device and tiered storage keep costs flat as traffic doubles.
+  interview_angle: How would you design an ingestion pipeline for millions of events per second?
+  model: demo
+- url: https://acme.example/blog/iceberg-lake
+  is_de: true
+  confidence: 0.9
+  primary_problem: storage_formats
+  problems:
+  - migration
+  post_type: case_study
+  level: advanced
+  stack:
+  - Iceberg
+  - Spark
+  - Trino
+  - Hive
+  scale: 8 PB
+  key_decisions:
+  - Chose a simple design first and measured before optimizing
+  - Ran old and new systems side by side before cutting over
+  - Added automated checks so regressions are caught early
+  summary: An invented migration from Hive Parquet tables to Iceberg with shadow writes and table-by-table cutover. Snapshot expiry and compaction jobs keep metadata small.
+  interview_angle: How would you migrate a petabyte data lake to a new table format with no downtime?
+  model: demo
+- url: https://acme.example/blog/late-data
+  is_de: true
+  confidence: 0.9
+  primary_problem: late_data
+  problems:
+  - realtime
+  post_type: deep_dive
+  level: advanced
+  stack:
+  - Flink
+  scale: ''
+  key_decisions:
+  - Chose a simple design first and measured before optimizing
+  - Ran old and new systems side by side before cutting over
+  - Added automated checks so regressions are caught early
+  summary: A made-up explainer on watermarks and allowed lateness for events from phones that were offline. It compares dropping, side-outputting and reprocessing late events.
+  interview_angle: How do you produce correct hourly aggregates when events arrive days late?
+  model: demo
+- url: https://acme.example/blog/new-logo
+  is_de: true
+  confidence: 0.9
+  primary_problem: platform
+  problems: []
+  post_type: announcement
+  level: advanced
+  stack: []
+  scale: ''
+  key_decisions:
+  - Chose a simple design first and measured before optimizing
+  - Ran old and new systems side by side before cutting over
+  - Added automated checks so regressions are caught early
+  summary: A fictional announcement about the blog's redesign with a short list of upcoming data posts.
+  interview_angle: What would you want from an internal data platform roadmap?
+  model: demo
+- url: https://globex.example/blog/ledger
+  is_de: true
+  confidence: 0.9
+  primary_problem: quality
+  problems:
+  - cdc_sync
+  post_type: case_study
+  level: advanced
+  stack:
+  - PostgreSQL
+  - Debezium
+  - Kafka
+  - Snowflake
+  scale: 1B rows/day
+  key_decisions:
+  - Chose a simple design first and measured before optimizing
+  - Ran old and new systems side by side before cutting over
+  - Added automated checks so regressions are caught early
+  summary: A fictional payments team streams ledger changes with CDC into the warehouse and reconciles balances hourly. Data contracts block schema changes that would break finance reports.
+  interview_angle: How would you guarantee that money movement data in the warehouse is complete and correct?
+  model: demo
+- url: https://globex.example/blog/cost-cut
+  is_de: true
+  confidence: 0.9
+  primary_problem: cost
+  problems:
+  - performance
+  post_type: case_study
+  level: advanced
+  stack:
+  - Snowflake
+  - dbt
+  scale: 40% cost reduction
+  key_decisions:
+  - Chose a simple design first and measured before optimizing
+  - Ran old and new systems side by side before cutting over
+  - Added automated checks so regressions are caught early
+  summary: An invented story of finding expensive dbt models, clustering large tables and moving rarely used data to cheaper storage. A weekly cost report keeps teams accountable.
+  interview_angle: How would you reduce the cost of a cloud data warehouse without slowing analysts down?
+  model: demo
+- url: https://globex.example/blog/gdpr-delete
+  is_de: true
+  confidence: 0.9
+  primary_problem: governance_privacy
+  problems:
+  - lineage_catalog
+  post_type: case_study
+  level: advanced
+  stack:
+  - Airflow
+  - Iceberg
+  scale: 300 tables
+  key_decisions:
+  - Chose a simple design first and measured before optimizing
+  - Ran old and new systems side by side before cutting over
+  - Added automated checks so regressions are caught early
+  summary: A fictional privacy project that uses lineage to find every copy of a customer's data and Iceberg row-level deletes to remove it within 30 days.
+  interview_angle: How would you implement right-to-be-forgotten across a data lake?
+  model: demo
+- url: https://globex.example/blog/outage
+  is_de: true
+  confidence: 0.9
+  primary_problem: quality
+  problems: []
+  post_type: postmortem
+  level: advanced
+  stack:
+  - Airflow
+  - Spark
+  scale: ''
+  key_decisions:
+  - Chose a simple design first and measured before optimizing
+  - Ran old and new systems side by side before cutting over
+  - Added automated checks so regressions are caught early
+  summary: A made-up incident where a silent upstream schema change emptied a core table. Freshness and volume checks were added at every hop afterwards.
+  interview_angle: How would you detect and contain a bad upstream change before dashboards break?
+  model: demo
+- url: https://initech.example/blog/feature-store
+  is_de: true
+  confidence: 0.9
+  primary_problem: ml_data
+  problems:
+  - realtime
+  post_type: case_study
+  level: advanced
+  stack:
+  - Redis
+  - Spark
+  - Kafka
+  - Feast
+  scale: 50K reads/sec
+  key_decisions:
+  - Chose a simple design first and measured before optimizing
+  - Ran old and new systems side by side before cutting over
+  - Added automated checks so regressions are caught early
+  summary: An invented feature store with an offline Spark path and an online Redis path computed from the same definitions, so training and serving stay consistent.
+  interview_angle: How would you design a feature store that serves features in milliseconds?
+  model: demo
+- url: https://initech.example/blog/metrics-layer
+  is_de: true
+  confidence: 0.9
+  primary_problem: modeling
+  problems:
+  - platform
+  post_type: opinion
+  level: advanced
+  stack:
+  - dbt
+  - Looker
+  scale: ''
+  key_decisions:
+  - Chose a simple design first and measured before optimizing
+  - Ran old and new systems side by side before cutting over
+  - Added automated checks so regressions are caught early
+  summary: A fictional essay on why a shared metrics layer stopped teams from reporting different trip counts, and the governance it needed.
+  interview_angle: How would you design a metrics layer so every team reports the same numbers?
+  model: demo
+- url: https://initech.example/blog/druid-to-clickhouse
+  is_de: true
+  confidence: 0.9
+  primary_problem: performance
+  problems:
+  - migration
+  post_type: case_study
+  level: advanced
+  stack:
+  - Druid
+  - ClickHouse
+  - Kafka
+  scale: p99 under 1 s
+  key_decisions:
+  - Chose a simple design first and measured before optimizing
+  - Ran old and new systems side by side before cutting over
+  - Added automated checks so regressions are caught early
+  summary: A made-up comparison and migration from Druid to ClickHouse for sub-second dashboards, including dual writes and query-by-query validation.
+  interview_angle: How would you choose and migrate to a new real-time OLAP store?
+  model: demo
+- url: https://initech.example/blog/ios-app
+  is_de: false
+  confidence: 0.9
+  primary_problem: null
+  problems: []
+  post_type: deep_dive
+  level: advanced
+  stack: []
+  scale: ''
+  key_decisions: []
+  summary: 'Not data engineering: a fictional mobile performance post.'
+  interview_angle: ''
+  model: demo

@@ -88,4 +88,9 @@ def load_taxonomy(path: Path = CONFIG_DIR / "taxonomy.yaml") -> dict:
         values = data.get(key)
         if not isinstance(values, list) or not values:
             raise ConfigError(f"{name}: '{key}' must be a non-empty list")
+    for i, question in enumerate(data.get("interview_questions") or []):
+        where = f"{name}: interview_questions[{i}]"
+        _require(question, ("q", "problems"), where)
+        if unknown := set(question["problems"]) - seen:
+            raise ConfigError(f"{where}: unknown problem id(s) {sorted(unknown)}")
     return data

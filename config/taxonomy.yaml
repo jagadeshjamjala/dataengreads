@@ -32,3 +32,19 @@ extract:            # free-form fields the LLM fills
   - key_decisions    # 3 bullets: decision + trade-off, in our own words
   - summary          # 2 sentences, our own words
   - interview_angle  # one system-design question this post helps answer
+
+# Interview mode on the site: each question lists the problem ids (and optional stack) whose posts answer it.
+interview_questions:
+  - { q: "Design a real-time analytics pipeline",                 problems: [realtime, scale_ingestion] }
+  - { q: "Ingest billions of events a day from apps and services", problems: [scale_ingestion] }
+  - { q: "Keep a warehouse in sync with production databases",     problems: [cdc_sync] }
+  - { q: "Handle late-arriving data and backfills",               problems: [late_data] }
+  - { q: "Design a data lake / lakehouse",                         problems: [storage_formats] }
+  - { q: "Cut the cost of a data platform",                        problems: [cost] }
+  - { q: "Make slow analytical queries fast",                      problems: [performance] }
+  - { q: "Catch bad data before it reaches dashboards",            problems: [quality] }
+  - { q: "Build a self-serve data platform for many teams",        problems: [platform, lineage_catalog] }
+  - { q: "Migrate off a legacy data system without downtime",      problems: [migration] }
+  - { q: "Design a metrics layer / experimentation data model",    problems: [modeling] }
+  - { q: "Delete user data on request (GDPR) across the platform", problems: [governance_privacy] }
+  - { q: "Design a feature store or training-data pipeline",       problems: [ml_data] }

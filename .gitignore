@@ -8,3 +8,4 @@ data/*.wal
 data/cache/
 site/index.html
 site/data.js
+site/og.png

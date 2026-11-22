@@ -72,6 +72,7 @@ def test_bad_blogs_rejected(tmp_path, change, message):
     (lambda d: d["problems"][0].pop("hint"), "hint"),
     (lambda d: d.update(problems=[]), "no problems"),
     (lambda d: d.update(post_types=[]), "post_types"),
+    (lambda d: d.update(interview_questions=[{"q": "Q?", "problems": ["nope"]}]), "unknown problem"),
 ])
 def test_bad_taxonomy_rejected(tmp_path, change, message):
     data = yaml.safe_load(yaml.safe_dump(GOOD_TAXONOMY))

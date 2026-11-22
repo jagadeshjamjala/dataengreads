@@ -60,13 +60,13 @@ Each phase: `/clear` → `/next-phase` → approve the plan → let it build and
 **Done when:** the top 20 look like posts you'd send to a colleague.
 
 ## Phase 8 — Static site
-- [ ] Cards: company, title, date, problem tags, stack chips, scale line, our summary, "Read on <company> blog ↗"
-- [ ] Expand a card to see key decisions and the interview angle
-- [ ] Filters: problem, company, industry, stack, post type; search; sort by best, newest, most discussed
-- [ ] Stack pages: "Kafka in production" lists every post using Kafka
-- [ ] **Interview mode:** pick a system-design question and see the posts that answer it
-- [ ] Link to DataEngTube for the same technology
-- [ ] Open Graph tags + 1200×630 preview image; light/dark; mobile
+- [x] Cards: company, title, date, problem tags, stack chips, scale line, our summary, "Read on <company> blog ↗"
+- [x] Expand a card to see key decisions and the interview angle
+- [x] Filters: problem, company, industry, stack, post type; search; sort by best, newest, most discussed
+- [x] Stack pages: "Kafka in production" lists every post using Kafka
+- [x] **Interview mode:** pick a system-design question and see the posts that answer it
+- ~~Link to DataEngTube for the same technology~~ (dropped: unrelated project)
+- [x] Open Graph tags + 1200×630 preview image; light/dark; mobile
 
 **Done when:** `demo` builds a site that works from `file://` and on phone width.
 

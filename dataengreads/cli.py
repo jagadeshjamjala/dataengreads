@@ -3,6 +3,7 @@ import argparse
 import os
 from urllib.parse import urlparse
 
+from dataengreads.build import SITE_DIR, build, demo
 from dataengreads.classify import DEFAULT_MODEL, classify, classify_post, evaluate, offline_classify
 from dataengreads.collect import collect
 from dataengreads.config import load_blogs, load_taxonomy
@@ -124,8 +125,20 @@ def run_rank(args: argparse.Namespace) -> int:
     return 0
 
 
+def run_build(args: argparse.Namespace) -> int:
+    n = build(connect(), load_taxonomy())
+    print(f"built site with {n} posts: {SITE_DIR / 'index.html'}")
+    return 0
+
+
+def run_demo(args: argparse.Namespace) -> int:
+    n = demo(load_taxonomy())
+    print(f"demo site with {n} made-up posts: {SITE_DIR / 'index.html'}  (open it in a browser)")
+    return 0
+
+
 HANDLERS = {"discover": run_discover, "collect": run_collect, "fetch": run_fetch,
-            "classify": run_classify, "rank": run_rank, "eval": run_eval}
+            "classify": run_classify, "rank": run_rank, "build": run_build, "demo": run_demo, "eval": run_eval}
 
 
 def main(argv: list[str] | None = None) -> int:
