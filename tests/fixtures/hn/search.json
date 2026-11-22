@@ -1,0 +1,6 @@
+{"hits": [
+  {"title": "How we built our lakehouse", "url": "https://Example.com/blog/lakehouse/", "points": 412, "num_comments": 150, "objectID": "1"},
+  {"title": "How we built our lakehouse (repost)", "url": "http://www.example.com/blog/lakehouse", "points": 12, "num_comments": 3, "objectID": "2"},
+  {"title": "Unrelated post that mentions the URL", "url": "https://other.com/lakehouse-review", "points": 900, "num_comments": 400, "objectID": "3"},
+  {"title": "Ask HN: no url", "url": null, "points": 50, "num_comments": 10, "objectID": "4"}
+], "nbHits": 4}

@@ -10,12 +10,14 @@ from dataengreads.db import connect
 from dataengreads.discover import discover
 from dataengreads.fetch import fetch
 from dataengreads.http import PoliteClient
+from dataengreads.rank import rank
 
 COMMANDS = {
     "discover": "Find each blog's RSS/Atom feed and sitemap",
     "collect": "Collect post URLs from feeds and sitemaps",
     "fetch": "Fetch posts and extract article text",
     "classify": "Classify and tag posts with an LLM",
+    "rank": "Score data engineering posts (best first)",
     "build": "Build the static site",
     "all": "Run the full pipeline",
     "demo": "Offline run on fixtures, no keys needed",
@@ -108,8 +110,22 @@ def run_eval(args: argparse.Namespace) -> int:
     return 0
 
 
+def run_rank(args: argparse.Namespace) -> int:
+    con = connect()
+    client = PoliteClient() if args.hn else None
+    counts = rank(con, client)
+    print(f"ranked {counts['ranked']} posts" + (f", HN looked up for {counts['hn_looked_up']}" if args.hn else ""))
+    top = con.execute(
+        "SELECT r.score, p.blog, c.post_type, coalesce(r.hn_points, 0), p.title FROM rankings r "
+        "JOIN posts p USING (url) JOIN classifications c USING (url) ORDER BY r.score DESC LIMIT ?", [args.top]
+    ).fetchall()
+    for i, (s, blog, kind, hn, title) in enumerate(top, 1):
+        print(f"  {i:>2}. {s:.2f}  {blog:<12} {kind:<12} HN {hn:>4}  {title[:70]}")
+    return 0
+
+
 HANDLERS = {"discover": run_discover, "collect": run_collect, "fetch": run_fetch,
-            "classify": run_classify, "eval": run_eval}
+            "classify": run_classify, "rank": run_rank, "eval": run_eval}
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -126,6 +142,9 @@ def main(argv: list[str] | None = None) -> int:
             cmd.add_argument("--retry-failed", action="store_true", help="also retry posts that failed before")
         if name in ("classify", "eval"):
             cmd.add_argument("--offline", action="store_true", help="keyword heuristic, no API key needed")
+        if name == "rank":
+            cmd.add_argument("--hn", action="store_true", help="also look up Hacker News points (hn.algolia.com)")
+            cmd.add_argument("--top", type=int, default=20, help="how many top posts to print (default 20)")
         if name == "classify":
             cmd.add_argument("--limit", type=int, default=100, help="posts to classify this run (default 100)")
             cmd.add_argument("--reclassify", action="store_true", help="also redo posts already classified")

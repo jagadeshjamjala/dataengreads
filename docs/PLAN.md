@@ -54,8 +54,8 @@ Each phase: `/clear` → `/next-phase` → approve the plan → let it build and
 *Your input:* label the eval set and read 10 summaries. Are they accurate, and in our own words?
 
 ## Phase 7 — Ranking
-- [ ] Score: post_type (case studies and postmortems first), depth (word count, scale stated, number of decisions), tier, confidence, light freshness boost; announcements penalized
-- [ ] Optional signal: HN discussion. Search the Algolia HN API for the post URL and store points/comments (same idea as DataEngTube's recommendations)
+- [x] Score: post_type (case studies and postmortems first), depth (word count, scale stated, number of decisions), tier, confidence, light freshness boost; announcements penalized
+- [x] Optional signal: HN discussion. Search the Algolia HN API for the post URL and store points/comments (same idea as DataEngTube's recommendations)
 
 **Done when:** the top 20 look like posts you'd send to a colleague.
 

@@ -1,4 +1,4 @@
-"""DuckDB storage: one file, three tables. Raw facts and LLM output stay separate."""
+"""DuckDB storage: one file, four tables. Raw facts and LLM output stay separate."""
 from pathlib import Path
 
 import duckdb
@@ -42,6 +42,13 @@ CREATE TABLE IF NOT EXISTS classifications (
     interview_angle VARCHAR,
     model           VARCHAR,
     classified_at   TIMESTAMP
+);
+CREATE TABLE IF NOT EXISTS rankings (
+    url         VARCHAR PRIMARY KEY,
+    score       DOUBLE,
+    hn_points   INTEGER,          -- NULL = not looked up yet, 0 = never on Hacker News
+    hn_comments INTEGER,
+    ranked_at   TIMESTAMP
 );
 """
 
