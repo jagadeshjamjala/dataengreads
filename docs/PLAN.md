@@ -47,7 +47,7 @@ Each phase: `/clear` → `/next-phase` → approve the plan → let it build and
 - [x] Forced tool call returning: is_de, confidence, primary_problem, problems, post_type, level, stack, scale, key_decisions (3), summary, interview_angle
 - [x] Normalize stack names (one alias map, e.g. "Apache Kafka" → "Kafka")
 - [x] `--offline` keyword heuristic for demo/tests
-- [ ] **Eval set:** `tests/fixtures/eval.yaml`, ~30 posts you label by hand; `python -m dataengreads eval` reports is_de and primary_problem accuracy
+- [x] **Eval set:** `tests/fixtures/eval.yaml`, ~30 posts you label by hand; `python -m dataengreads eval` reports is_de and primary_problem accuracy
 
 **Done when:** mocked tests pass; is_de accuracy ≥ 90% on your eval set. Check the cost of 100 posts before the full run.
 

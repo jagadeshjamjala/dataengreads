@@ -90,6 +90,11 @@ def test_no_tool_call_leaves_post_unclassified(con):
     assert con.execute("SELECT count(*) FROM classifications").fetchone()[0] == 0
 
 
+def test_leaked_tool_markup_counts_as_failed(con):
+    leaked = ANSWER | {"summary": 'S.</summary>\n<parameter name="interview_angle">Q?'}
+    assert classify(con, TAX, client=FakeAnthropic(answer=leaked))["failed"] == 2
+
+
 @pytest.mark.parametrize("raw, want", [
     ("&lt;UNKNOWN&gt;", ""), ("<unknown>", ""), (" N/A ", ""), ("Not stated.", ""), ("", ""),
     ("4 PB/day", "4 PB/day"), ("Unknown volume, 2M events/sec", "Unknown volume, 2M events/sec"),

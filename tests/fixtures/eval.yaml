@@ -1,184 +1,250 @@
-# Hand-labelled eval set for `python -m dataengreads eval`.
-# Labels below are OFFLINE-HEURISTIC GUESSES. Correct is_de / primary_problem (an id from
-# config/taxonomy.yaml, or null when is_de is false), then set reviewed: true.
+# Eval set for `python -m dataengreads eval`.
+# Labelled by Claude (2026-11-22) from each post's text, independently of the classifier's output;
+# spot-check and fix any you disagree with. primary_problem is an id from config/taxonomy.yaml, null when is_de is false.
 posts:
 - url: https://blog.cloudflare.com/making-protocols-post-quantum
   company: Cloudflare
   title: Making protocols post-quantum
   is_de: false
   primary_problem: null
-  reviewed: false
+  reviewed: true
 - url: https://monzo.com/blog/2017/08/09/complaints-at-monzo
   company: Monzo
   title: Turn That Frown Upside Down
   is_de: false
   primary_problem: null
-  reviewed: false
+  reviewed: true
 - url: https://netflixtechblog.com/ml-observability-bring-transparency-to-payments-and-beyond-33073e260a38
   company: Netflix
   title: 'ML Observability: Bringing Transparency to Payments and Beyond'
   is_de: false
   primary_problem: null
-  reviewed: false
+  reviewed: true
 - url: https://blog.cloudflare.com/javascript-libraries-are-almost-never-updated
   company: Cloudflare
   title: JavaScript Libraries Are Almost Never Updated Once Installed
   is_de: false
   primary_problem: null
-  reviewed: false
+  reviewed: true
 - url: https://netflixtechblog.com/measuring-the-impact-of-personalized-recommendations-4c26be3a4d96
   company: Netflix
   title: Measuring the Impact of Personalized Recommendations
   is_de: false
   primary_problem: null
-  reviewed: false
+  reviewed: true
 - url: https://tech.instacart.com/introducing-pixel-instacarts-unified-image-generation-platform-6d7dd0efe4c1
   company: Instacart
   title: 'Introducing PIXEL: Instacart’s Unified Image Generation Platform'
   is_de: false
   primary_problem: null
-  reviewed: false
+  reviewed: true
 - url: https://engineering.grab.com/mac-cloud-exit
   company: Grab
   title: Grab's Mac Cloud Exit supercharges macOS CI/CD
   is_de: false
   primary_problem: null
-  reviewed: false
+  reviewed: true
 - url: https://tech.instacart.com/one-model-to-serve-them-all-0eb6bf60b00d
   company: Instacart
   title: One model to serve them all
   is_de: false
   primary_problem: null
-  reviewed: false
+  reviewed: true
 - url: https://shopify.engineering/what-is-nix
   company: Shopify
   title: What Is Nix
   is_de: false
   primary_problem: null
-  reviewed: false
+  reviewed: true
 - url: https://stripe.com/blog/billing-eu
   company: Stripe
   title: SCA, invoicing, and tax tools for Stripe Billing
   is_de: false
   primary_problem: null
-  reviewed: false
+  reviewed: true
 - url: https://eng.lyft.com/flyte-joins-lf-ai-data-48c9b4b60eec
   company: Lyft
   title: Flyte Joins LF AI & Data
-  is_de: false
-  primary_problem: null
-  reviewed: false
+  is_de: true
+  primary_problem: platform
+  reviewed: true
 - url: https://monzo.com/blog/side-hustle-forecast-for-2026
   company: Monzo
   title: 'Side hustles: perceptions, trends & opportunities in 2026'
   is_de: false
   primary_problem: null
-  reviewed: false
+  reviewed: true
 - url: https://engineering.zalando.com/posts/2021/09/sre-journey-part1.html
   company: Zalando
   title: Tracing SRE’s journey in Zalando - Part I
   is_de: false
   primary_problem: null
-  reviewed: false
+  reviewed: true
 - url: https://shopify.engineering/shopify-made-patterns-in-our-rails-apps
   company: Shopify
   title: Shopify-Made Patterns in Our Rails Apps
-  is_de: true
-  primary_problem: migration
-  reviewed: false
+  is_de: false
+  primary_problem: null
+  reviewed: true
 - url: https://engineering.grab.com/reclaiming-tetabytes-optimizing-android-image-caching-with-tlru
   company: Grab
   title: 'Reclaiming Terabytes: Optimizing Android image caching with TLRU'
   is_de: false
   primary_problem: null
-  reviewed: false
+  reviewed: true
 - url: https://engineering.atspotify.com/2026/9/ai-changed-how-spotify-builds-what-we-learned-and-fixed-about-quality-at-higher-velocity
   company: Spotify
   title: AI Changed How Spotify Builds. What We Learned (and Fixed) About Quality at Higher Velocity
-  is_de: true
-  primary_problem: quality
-  reviewed: false
+  is_de: false
+  primary_problem: null
+  reviewed: true
 - url: https://slack.engineering/from-custom-to-open-scalable-network-probing-and-http-3-readiness-with-prometheus
   company: Slack
   title: 'From Custom to Open: Scalable Network Probing and HTTP/3 Readiness with Prometheus'
   is_de: false
   primary_problem: null
-  reviewed: false
+  reviewed: true
 - url: https://engineering.zalando.com/posts/2019/04/developing-zalando-apis.html
   company: Zalando
   title: Zalando Engineering Blog - Developing Zalando APIs
   is_de: false
   primary_problem: null
-  reviewed: false
+  reviewed: true
 - url: https://stripe.com/blog/fast-secure-builds-choose-two
   company: Stripe
   title: Fast builds, secure builds. Choose two
-  is_de: true
-  primary_problem: performance
-  reviewed: false
+  is_de: false
+  primary_problem: null
+  reviewed: true
 - url: https://dropbox.tech/application/accelerating-iteration-velocity-on-dropboxs-desktop-client-part-2
   company: Dropbox
   title: Accelerating Iteration Velocity on Dropbox’s Desktop Client, Part 2
   is_de: false
   primary_problem: null
-  reviewed: false
+  reviewed: true
 - url: https://medium.com/walmartglobaltech/metastealer-traffic-new-dgas-and-analyzing-the-tracker-backdoor-dga-with-ai-96ea63dc7c01
   company: Walmart
   title: MetaStealer traffic, new DGAs and analyzing the “tracker” backdoor DGA with AI
   is_de: false
   primary_problem: null
-  reviewed: false
+  reviewed: true
 - url: https://eng.lyft.com/the-journey-to-server-driven-ui-at-lyft-bikes-and-scooters-c19264a0378e
   company: Lyft
   title: The Journey to Server Driven UI At Lyft Bikes and Scooters
   is_de: false
   primary_problem: null
-  reviewed: false
+  reviewed: true
 - url: https://dropbox.tech/infrastructure/retrieving-thumbnails
   company: Dropbox
   title: 'Improving Dropbox Performance: Retrieving Thumbnails'
-  is_de: true
-  primary_problem: modeling
-  reviewed: false
+  is_de: false
+  primary_problem: null
+  reviewed: true
 - url: https://medium.com/walmartglobaltech/mapping-ottercookie-infrastructure-1c49f0cd3883
   company: Walmart
   title: Mapping Ottercookie Infrastructure
   is_de: false
   primary_problem: null
-  reviewed: false
+  reviewed: true
 - url: https://slack.engineering/agentic-testing-where-agents-fit-in-the-e2e-testing-stack
   company: Slack
   title: 'Agentic Testing: Where Agents Fit in the E2E Testing Stack'
   is_de: false
   primary_problem: null
-  reviewed: false
+  reviewed: true
 - url: https://engineering.fb.com/2021/07/22/data-infrastructure/mysql
   company: Meta
   title: Migrating Facebook to MySQL 8.0
   is_de: true
   primary_problem: migration
-  reviewed: false
+  reviewed: true
 - url: https://engineering.fb.com/2018/10/16/connectivity/tip-summit
   company: Meta
   title: 'TIP Summit 2018: Advancing efforts to improve global connectivity'
   is_de: false
   primary_problem: null
-  reviewed: false
+  reviewed: true
 - url: https://medium.com/pinterest-engineering/partition-finalization-in-pinterests-next-generation-db-ingestion-framework-4c7da6e4cc8f
   company: Pinterest
   title: Partition Finalization in Pinterest’s Next-Generation DB Ingestion Framework
   is_de: true
-  primary_problem: storage_formats
-  reviewed: false
+  primary_problem: late_data
+  reviewed: true
 - url: https://medium.com/expedia-group-tech/how-i-taught-an-ai-to-read-my-logs-9c04f1cfa750
   company: Expedia
   title: How I Taught an AI to Read My Logs
   is_de: true
-  primary_problem: lineage_catalog
-  reviewed: false
+  primary_problem: performance
+  reviewed: true
 - url: https://engineering.atspotify.com/2026/10/advancing-generative-recommendation-inference-our-collaboration-with-nvidia-on-tensorrt-llm
   company: Spotify
   title: 'Advancing Generative Recommendation Inference: our collaboration with NVIDIA on TensorRT LLM'
   is_de: false
   primary_problem: null
-  reviewed: false
+  reviewed: true
+- url: https://engineering.grab.com/our-journey-to-apache-iceberg-adoption
+  company: Grab
+  title: 'Scaling Grab''s Data Lake: Our journey to Apache Iceberg adoption'
+  is_de: true
+  primary_problem: storage_formats
+  reviewed: true
+- url: https://engineering.grab.com/real-time-data-quality-monitoring
+  company: Grab
+  title: 'Real-time data quality monitoring: Kafka stream contracts with syntactic and semantic test'
+  is_de: true
+  primary_problem: quality
+  reviewed: true
+- url: https://engineering.grab.com/one-click-data-ingestion-platform-with-apache-flink
+  company: Grab
+  title: 'The Hugo evolution: Engineering Grab''s unified, one-click data ingestion platform with Apache Flink'
+  is_de: true
+  primary_problem: platform
+  reviewed: true
+- url: https://tech.instacart.com/building-a-flink-self-serve-platform-on-kubernetes-at-scale-c11ef19aef10
+  company: Instacart
+  title: Building a Flink Self-Serve Platform on Kubernetes at Scale
+  is_de: true
+  primary_problem: platform
+  reviewed: true
+- url: https://eng.lyft.com/from-big-data-to-better-data-ensuring-data-quality-with-verity-a996b49343f6
+  company: Lyft
+  title: 'From Big Data to Better Data: Ensuring Data Quality with Verity'
+  is_de: true
+  primary_problem: quality
+  reviewed: true
+- url: https://www.capitalone.com/tech/software-engineering/spark-tuning-executor-optimization
+  company: Capital One
+  title: Spark Executor Tuning for Optimal Performance | Capital One Tech
+  is_de: true
+  primary_problem: performance
+  reviewed: true
+- url: https://engineering.grab.com/experimentation-platform-data-pipeline
+  company: Grab
+  title: A Lean and Scalable Data Pipeline to Capture Large Scale Events and Support Experimentation Platform
+  is_de: true
+  primary_problem: scale_ingestion
+  reviewed: true
+- url: https://slack.engineering/from-ssh-to-rest-a-security-driven-modernization-of-slacks-emr-data-pipelines
+  company: Slack
+  title: 'From SSH to REST: A Security-Driven Modernization of Slack’s EMR Data Pipelines'
+  is_de: true
+  primary_problem: migration
+  reviewed: true
+- url: https://www.capitalone.com/tech/cloud/lakehouse-format-convergence-delta-lake-iceberg
+  company: Capital One
+  title: 'Lakehouse Convergence: Delta Lake & Iceberg | Capital One Tech'
+  is_de: true
+  primary_problem: storage_formats
+  reviewed: true
+- url: https://eng.lyft.com/orchestrating-data-pipelines-at-lyft-comparing-flyte-and-airflow-72c40d143aad
+  company: Lyft
+  title: 'Orchestrating Data Pipelines at Lyft: comparing Flyte and Airflow'
+  is_de: true
+  primary_problem: platform
+  reviewed: true
+- url: https://engineering.grab.com/zero-traffic-cost
+  company: Grab
+  title: Zero traffic cost for Kafka consumers
+  is_de: true
+  primary_problem: cost
+  reviewed: true

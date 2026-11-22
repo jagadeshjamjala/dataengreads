@@ -107,6 +107,9 @@ def _scale(value: str) -> str:
     return "" if placeholder in ("", "unknown", "none", "n/a", "na", "not stated", "not specified") else clean
 
 
+LEAKED_MARKUP = re.compile(r"</?(parameter|invoke|summary|interview_angle)\b")
+
+
 def _row(url: str, out: dict, model: str) -> dict:
     primary = out["primary_problem"]
     return {
@@ -142,7 +145,10 @@ def classify_post(client, model: str, post: dict, taxonomy: dict) -> tuple[dict 
         messages=[{"role": "user", "content": prompt}],
     )
     call = next((b for b in resp.content if b.type == "tool_use" and b.name == TOOL_NAME), None)
-    return (_row(post["url"], call.input, model) if call else None), resp.usage
+    # ~0.5% of answers leak tool-call markup into a text field; treat as failed so the next run retries it.
+    if call is None or LEAKED_MARKUP.search(str(call.input)):
+        return None, resp.usage
+    return _row(post["url"], call.input, model), resp.usage
 
 
 # Offline heuristic: enough data words means DE; the problem whose keywords appear most wins.
