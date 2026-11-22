@@ -8,23 +8,29 @@
 <!-- Link previews need absolute URLs; change these if the site moves to a custom domain. -->
 <link rel="canonical" href="https://jagadeshjamjala.github.io/dataengreads/">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="DataEngReads">
 <meta property="og:url" content="https://jagadeshjamjala.github.io/dataengreads/">
 <meta property="og:title" content="DataEngReads: data engineering case studies from company blogs">
 <meta property="og:description" content="How Netflix, Stripe, Grab and others build pipelines, lakehouses and streaming systems. Filter by problem, stack and scale.">
 <meta property="og:image" content="https://jagadeshjamjala.github.io/dataengreads/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:alt" content="DataEngReads: real-world data engineering case studies from company engineering blogs">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="DataEngReads: data engineering case studies from company blogs">
+<meta name="twitter:description" content="How Netflix, Stripe, Grab and others build pipelines, lakehouses and streaming systems.">
+<meta name="twitter:image" content="https://jagadeshjamjala.github.io/dataengreads/og.png">
 <style>
 :root {
   --bg: #fbfaf7; --card: #ffffff; --text: #1c1b19; --muted: #6b6860; --line: #e4e1d9;
-  --accent: #2856c7; --accent-soft: #e8eefc; --chip: #f1efe9; --warn: #a15c00;
+  --accent: #2856c7; --accent-soft: #e8eefc; --chip: #f1efe9; --warn: #a15c00; --on-accent: #ffffff;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
   :root {
     --bg: #131416; --card: #1b1d20; --text: #ecebe8; --muted: #9b9a95; --line: #2c2f33;
-    --accent: #8fb0ff; --accent-soft: #1f2a44; --chip: #26292d; --warn: #e0a35a;
+    --accent: #8fb0ff; --accent-soft: #1f2a44; --chip: #26292d; --warn: #e0a35a; --on-accent: #0f1626;
     color-scheme: dark;
   }
 }
@@ -36,11 +42,12 @@ a { color: var(--accent); }
 header { padding: 28px 0 8px; }
 h1 { margin: 0; font-size: 28px; letter-spacing: -0.02em; }
 h1 a { color: inherit; text-decoration: none; }
+h1 .brand { color: var(--accent); }
 .tagline { margin: 4px 0 0; color: var(--muted); }
 nav.modes { display: flex; gap: 8px; margin: 16px 0 0; }
-nav.modes a { padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); text-decoration: none;
-  color: var(--text); font-size: 14px; }
-nav.modes a[aria-current="page"] { background: var(--text); color: var(--bg); border-color: var(--text); }
+nav.modes a { padding: 6px 14px; border-radius: 999px; border: 1px solid var(--accent); text-decoration: none;
+  background: var(--accent-soft); color: var(--accent); font-size: 14px; font-weight: 500; }
+nav.modes a[aria-current="page"] { background: var(--accent); color: var(--on-accent); }
 .controls { display: grid; grid-template-columns: 2fr repeat(5, 1fr); gap: 8px; margin: 16px 0 8px; }
 .controls input, .controls select { width: 100%; padding: 8px 10px; font: inherit; font-size: 14px;
   background: var(--card); color: var(--text); border: 1px solid var(--line); border-radius: 8px; }
@@ -91,7 +98,7 @@ button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible
 <body>
 <div class="wrap">
   <header>
-    <h1><a href="#">DataEngReads</a></h1>
+    <h1><a href="#">DataEng<span class="brand">Reads</span></a></h1>
     <p class="tagline">Real-world data engineering case studies from company engineering blogs.</p>
     <nav class="modes" aria-label="Mode">
       <a href="#" id="mode-browse">Browse</a>
